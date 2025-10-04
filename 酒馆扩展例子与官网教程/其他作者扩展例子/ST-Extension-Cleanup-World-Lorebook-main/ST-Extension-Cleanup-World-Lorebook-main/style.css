@@ -1,0 +1,55 @@
+/* 世界信息清理扩展样式 World Info Cleanup Extension Styles */
+/* 你可以在这里修改样式 You can modify styles here */
+
+/* 主设置容器 Main settings container */
+.world-info-cleanup-settings {
+    /* Remove margin to prevent gap in extension drawer */
+}
+
+/* 每个设置块 Each setting block */
+.world-info-cleanup_block {
+    margin: 10px 0;
+    align-items: center;
+}
+
+/* 标签样式 Label styles */
+.world-info-cleanup_block label {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* 下拉选择框 Select dropdown */
+.world-info-cleanup_block select {
+    margin-left: 10px;
+}
+
+/* 小字说明文本 Small description text */
+.world-info-cleanup_block small {
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* 按钮最小宽度 Button minimum width */
+#world_info_cleanup_manual,
+#world_info_cleanup_debug {
+    min-width: 150px;
+}
+
+/* Fix for squished popup dialog buttons */
+.popup-button-ok,
+.popup-button-cancel,
+#dialogue_popup_ok,
+#dialogue_popup_cancel {
+    min-height: 36px !important;
+    padding: 8px 16px !important;
+    line-height: normal !important;
+    white-space: nowrap !important;
+}
+
+/* Make sure the text isn't cut off */
+.dialogue_popup_buttons button span,
+.popup-buttons button span {
+    display: inline-block !important;
+    line-height: 1.2 !important;
+}

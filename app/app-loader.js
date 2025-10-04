@@ -189,9 +189,9 @@ function isMobileEnvironment() {
 
 // 延迟自动加载
 setTimeout(() => {
-    // if (isMobileEnvironment()) { // 移除环境检查，强制加载
+    if (isMobileEnvironment()) {
         loadMobileAppModules();
-    // }
+    }
 }, 1000);
 
 console.log('[App Loader] 应用加载器模块加载完成');
