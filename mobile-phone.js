@@ -47,13 +47,13 @@ class MobilePhone {
     // 加载CSS样式
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = '/scripts/extensions/third-party/mobile/drag-helper.css';
+    cssLink.href = `/scripts/extensions/third-party/${extensionName}/drag-helper.css`;
     document.head.appendChild(cssLink);
 
     // 加载JS插件
     if (typeof DragHelper === 'undefined') {
       const script = document.createElement('script');
-      script.src = '/scripts/extensions/third-party/mobile/drag-helper.js';
+      script.src = `/scripts/extensions/third-party/${extensionName}/drag-helper.js`;
       script.onload = () => {
         console.log('[Mobile Phone] 拖拽插件加载成功');
       };
