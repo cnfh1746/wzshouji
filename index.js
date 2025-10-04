@@ -8,7 +8,7 @@
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 import { saveSettingsDebounced } from "../../../../script.js";
 
-const extensionName = "waizhishouji-main";
+const extensionName = "wzshouji";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 
 // 优化：首先加载性能配置和优化加载器
