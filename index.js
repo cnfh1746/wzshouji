@@ -5,27 +5,33 @@
 // @author       Assistant
 // @license      MIT
 
+import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
+import { saveSettingsDebounced } from "../../../../script.js";
+
+const extensionName = "waizhishouji-main";
+const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
+
 // 优化：首先加载性能配置和优化加载器
 const performanceScript = document.createElement('script');
-performanceScript.src = './scripts/extensions/third-party/mobile/performance-config.js';
+performanceScript.src = `${extensionFolderPath}/performance-config.js`;
 performanceScript.onload = () => {
   console.log('[Mobile Context] 性能配置加载完成');
 
   // 加载优化加载器
   const optimizedLoaderScript = document.createElement('script');
-  optimizedLoaderScript.src = './scripts/extensions/third-party/mobile/optimized-loader.js';
+  optimizedLoaderScript.src = `${extensionFolderPath}/optimized-loader.js`;
   optimizedLoaderScript.onload = () => {
     console.log('[Mobile Context] 优化加载器加载完成');
 
     // 加载性能测试器
     const performanceTestScript = document.createElement('script');
-    performanceTestScript.src = './scripts/extensions/third-party/mobile/performance-test.js';
+    performanceTestScript.src = `${extensionFolderPath}/performance-test.js`;
     performanceTestScript.onload = () => {
       console.log('[Mobile Context] 性能测试器加载完成');
 
       // 加载诊断工具
       const diagnosticScript = document.createElement('script');
-      diagnosticScript.src = './scripts/extensions/third-party/mobile/diagnostic-tool.js';
+      diagnosticScript.src = `${extensionFolderPath}/diagnostic-tool.js`;
       diagnosticScript.onload = () => {
         console.log('[Mobile Context] 诊断工具加载完成');
         // 开始优化加载流程
@@ -55,19 +61,19 @@ async function initOptimizedLoading() {
     // 定义核心模块（高优先级）
     const coreModules = [
       {
-        src: './scripts/extensions/third-party/mobile/context-monitor.js',
+        src: `${extensionFolderPath}/context-monitor.js`,
         name: 'context-monitor',
         priority: 'high',
         required: true,
       },
       {
-        src: './scripts/extensions/third-party/mobile/mobile-upload.js',
+        src: `${extensionFolderPath}/mobile-upload.js`,
         name: 'mobile-upload',
         priority: 'high',
         required: true,
       },
       {
-        src: './scripts/extensions/third-party/mobile/mobile-phone.js',
+        src: `${extensionFolderPath}/mobile-phone.js`,
         name: 'mobile-phone',
         priority: 'high',
         required: true,
@@ -77,43 +83,43 @@ async function initOptimizedLoading() {
     // 定义扩展模块（中优先级）
     const extensionModules = [
       {
-        src: './scripts/extensions/third-party/mobile/context-editor.js',
+        src: `${extensionFolderPath}/context-editor.js`,
         name: 'context-editor',
         priority: 'medium',
         required: false,
       },
       {
-        src: './scripts/extensions/third-party/mobile/custom-api-config.js',
+        src: `${extensionFolderPath}/custom-api-config.js`,
         name: 'custom-api-config',
         priority: 'medium',
         required: false,
       },
       {
-        src: './scripts/extensions/third-party/mobile/mesid-floor-monitor.js',
+        src: `${extensionFolderPath}/mesid-floor-monitor.js`,
         name: 'mesid-floor-monitor',
         priority: 'medium',
         required: false,
       },
       {
-        src: './scripts/extensions/third-party/mobile/app/weibo-app/weibo-manager.js',
+        src: `${extensionFolderPath}/app/weibo-app/weibo-manager.js`,
         name: 'weibo-manager',
         priority: 'medium',
         required: false,
       },
       {
-        src: './scripts/extensions/third-party/mobile/app/forum-app/forum-manager.js',
+        src: `${extensionFolderPath}/app/forum-app/forum-manager.js`,
         name: 'forum-manager',
         priority: 'medium',
         required: false,
       },
       {
-        src: './scripts/extensions/third-party/mobile/app/weibo-app/weibo-auto-listener.js',
+        src: `${extensionFolderPath}/app/weibo-app/weibo-auto-listener.js`,
         name: 'weibo-auto-listener',
         priority: 'low',
         required: false,
       },
       {
-        src: './scripts/extensions/third-party/mobile/app/forum-app/forum-auto-listener.js',
+        src: `${extensionFolderPath}/app/forum-app/forum-auto-listener.js`,
         name: 'forum-auto-listener',
         priority: 'low',
         required: false,
@@ -144,7 +150,7 @@ function fallbackToTraditionalLoading() {
 
   // 引入上下文监控器
   const contextScript = document.createElement('script');
-  contextScript.src = './scripts/extensions/third-party/mobile/context-monitor.js';
+  contextScript.src = `${extensionFolderPath}/context-monitor.js`;
   contextScript.onload = () => {
     console.log('[Mobile Context] 上下文监控器加载完成');
   };
@@ -152,7 +158,7 @@ function fallbackToTraditionalLoading() {
 
   // 加载移动端上传管理器
   const uploadScript = document.createElement('script');
-  uploadScript.src = './scripts/extensions/third-party/mobile/mobile-upload.js';
+  uploadScript.src = `${extensionFolderPath}/mobile-upload.js`;
   uploadScript.onload = () => {
     console.log('[Mobile Context] 移动端上传管理器加载完成');
     // 检查上传管理器是否创建成功
@@ -171,13 +177,13 @@ function fallbackToTraditionalLoading() {
 
   // 加载性能测试器（传统方式）
   const performanceTestScript = document.createElement('script');
-  performanceTestScript.src = './scripts/extensions/third-party/mobile/performance-test.js';
+  performanceTestScript.src = `${extensionFolderPath}/performance-test.js`;
   performanceTestScript.onload = () => {
     console.log('[Mobile Context] 性能测试器加载完成（传统方式）');
 
     // 加载诊断工具（传统方式）
     const diagnosticScript = document.createElement('script');
-    diagnosticScript.src = './scripts/extensions/third-party/mobile/diagnostic-tool.js';
+    diagnosticScript.src = `${extensionFolderPath}/diagnostic-tool.js`;
     diagnosticScript.onload = () => {
       console.log('[Mobile Context] 诊断工具加载完成（传统方式）');
     };
@@ -194,7 +200,7 @@ function fallbackToTraditionalLoading() {
 
 // 加载移动端上下文编辑器
 const contextEditorScript = document.createElement('script');
-contextEditorScript.src = './scripts/extensions/third-party/mobile/context-editor.js';
+contextEditorScript.src = `${extensionFolderPath}/context-editor.js`;
 contextEditorScript.onload = () => {
   console.log('[Mobile Context] 移动端上下文编辑器加载完成');
   // 检查上下文编辑器是否创建成功
@@ -213,7 +219,7 @@ document.head.appendChild(contextEditorScript);
 
 // 加载自定义API配置模块
 const customAPIScript = document.createElement('script');
-customAPIScript.src = './scripts/extensions/third-party/mobile/custom-api-config.js';
+customAPIScript.src = `${extensionFolderPath}/custom-api-config.js`;
 customAPIScript.onload = () => {
   console.log('[Mobile Context] 自定义API配置模块加载完成');
   // 检查API配置模块是否创建成功
@@ -232,7 +238,7 @@ document.head.appendChild(customAPIScript);
 
 // 加载MesID楼层监听器模块
 const mesidFloorScript = document.createElement('script');
-mesidFloorScript.src = './scripts/extensions/third-party/mobile/mesid-floor-monitor.js';
+mesidFloorScript.src = `${extensionFolderPath}/mesid-floor-monitor.js`;
 mesidFloorScript.onload = () => {
   console.log('[Mobile Context] MesID楼层监听器模块加载完成');
   // 检查楼层监听器是否创建成功
@@ -252,7 +258,7 @@ document.head.appendChild(mesidFloorScript);
 // 加载微博功能模块
 // 1. 加载微博管理器
 const weiboManagerScript = document.createElement('script');
-weiboManagerScript.src = './scripts/extensions/third-party/mobile/app/weibo-app/weibo-manager.js';
+weiboManagerScript.src = `${extensionFolderPath}/app/weibo-app/weibo-manager.js`;
 weiboManagerScript.onload = () => {
   console.log('[Mobile Context] 微博管理器加载完成');
   // 检查微博管理器是否创建成功
@@ -271,7 +277,7 @@ document.head.appendChild(weiboManagerScript);
 
 // 2. 加载微博自动监听器
 const weiboAutoListenerScript = document.createElement('script');
-weiboAutoListenerScript.src = './scripts/extensions/third-party/mobile/app/weibo-app/weibo-auto-listener.js';
+weiboAutoListenerScript.src = `${extensionFolderPath}/app/weibo-app/weibo-auto-listener.js`;
 weiboAutoListenerScript.onload = () => {
   console.log('[Mobile Context] 微博自动监听器加载完成');
   // 检查微博自动监听器是否创建成功
@@ -291,7 +297,7 @@ document.head.appendChild(weiboAutoListenerScript);
 // 加载论坛功能模块
 // 1. 先加载论坛管理器
 const forumManagerScript = document.createElement('script');
-forumManagerScript.src = './scripts/extensions/third-party/mobile/app/forum-app/forum-manager.js';
+forumManagerScript.src = `${extensionFolderPath}/app/forum-app/forum-manager.js`;
 forumManagerScript.onload = () => {
   console.log('[Mobile Context] 论坛管理器加载完成');
   // 检查论坛管理器是否创建成功
@@ -310,7 +316,7 @@ document.head.appendChild(forumManagerScript);
 
 // 2. 加载论坛风格定义
 const forumStylesScript = document.createElement('script');
-forumStylesScript.src = './scripts/extensions/third-party/mobile/app/forum-app/forum-styles.js';
+forumStylesScript.src = `${extensionFolderPath}/app/forum-app/forum-styles.js`;
 forumStylesScript.onload = () => {
   console.log('[Mobile Context] 论坛风格模块加载完成');
   // 检查论坛风格是否创建成功
@@ -329,7 +335,7 @@ document.head.appendChild(forumStylesScript);
 
 // 3. 加载论坛自动监听器
 const forumAutoListenerScript = document.createElement('script');
-forumAutoListenerScript.src = './scripts/extensions/third-party/mobile/app/forum-app/forum-auto-listener.js';
+forumAutoListenerScript.src = `${extensionFolderPath}/app/forum-app/forum-auto-listener.js`;
 forumAutoListenerScript.onload = () => {
   console.log('[Mobile Context] 论坛自动监听器加载完成');
   // 检查论坛自动监听器是否创建成功
@@ -350,7 +356,7 @@ document.head.appendChild(forumAutoListenerScript);
 const phoneStyle = document.createElement('link');
 phoneStyle.rel = 'stylesheet';
 phoneStyle.type = 'text/css';
-phoneStyle.href = './scripts/extensions/third-party/mobile/mobile-phone.css';
+phoneStyle.href = `${extensionFolderPath}/mobile-phone.css`;
 phoneStyle.onload = () => {
   console.log('[Mobile Context] 手机界面样式加载完成');
 };
@@ -363,7 +369,7 @@ document.head.appendChild(phoneStyle);
 const imageConfigStyle = document.createElement('link');
 imageConfigStyle.rel = 'stylesheet';
 imageConfigStyle.type = 'text/css';
-imageConfigStyle.href = './scripts/extensions/third-party/mobile/app/image-config-modal.css';
+imageConfigStyle.href = `${extensionFolderPath}/app/image-config-modal.css`;
 imageConfigStyle.onload = () => {
   console.log('[Mobile Context] 图片配置弹窗样式加载完成');
 };
@@ -374,7 +380,7 @@ document.head.appendChild(imageConfigStyle);
 
 // 加载手机界面脚本（在样式之后）
 const phoneScript = document.createElement('script');
-phoneScript.src = './scripts/extensions/third-party/mobile/mobile-phone.js';
+phoneScript.src = `${extensionFolderPath}/mobile-phone.js`;
 phoneScript.onload = () => {
   console.log('[Mobile Context] 手机界面脚本加载完成');
   // 检查按钮是否创建成功
@@ -398,7 +404,7 @@ document.head.appendChild(phoneScript);
 
 // 加载语音消息处理器脚本
 const voiceMessageScript = document.createElement('script');
-voiceMessageScript.src = './scripts/extensions/third-party/mobile/app/voice-message-handler.js';
+voiceMessageScript.src = `${extensionFolderPath}/app/voice-message-handler.js`;
 voiceMessageScript.onload = () => {
   console.log('[Mobile Context] 语音消息处理器加载完成');
   // 检查语音消息处理器是否创建成功
@@ -417,7 +423,7 @@ document.head.appendChild(voiceMessageScript);
 
 // 加载图片配置弹窗脚本
 const imageConfigScript = document.createElement('script');
-imageConfigScript.src = './scripts/extensions/third-party/mobile/app/image-config-modal.js';
+imageConfigScript.src = `${extensionFolderPath}/app/image-config-modal.js`;
 imageConfigScript.onload = () => {
   console.log('[Mobile Context] 图片配置弹窗加载完成');
   // 检查图片配置弹窗是否创建成功
@@ -436,6 +442,7 @@ document.head.appendChild(imageConfigScript);
 
 // 等待页面加载完成后初始化
 jQuery(async () => {
+    await loadSettings();
   // 等待 SillyTavern 完全加载
   if (!window.SillyTavern) {
     console.log('[Mobile Context] 等待 SillyTavern 启动...');
@@ -490,10 +497,13 @@ const defaultSettings = {
   hidePhone: false,
 };
 
-// 插件设置
-let extension_settings = {
-  mobile_context: { ...defaultSettings },
-};
+async function loadSettings() {
+  //Create the settings if they don't exist
+  extension_settings[extensionName] = extension_settings[extensionName] || {};
+  if (Object.keys(extension_settings[extensionName]).length === 0) {
+    Object.assign(extension_settings[extensionName], defaultSettings);
+  }
+}
 
 // 等待 ContextMonitor 类加载
 function waitForContextMonitor() {
@@ -568,7 +578,7 @@ async function initMobileContextPlugin() {
     await waitForContextMonitor();
 
     // 初始化上下文监控器
-    contextMonitor = new window.ContextMonitor(extension_settings.mobile_context);
+    contextMonitor = new window.ContextMonitor(extension_settings[extensionName]);
 
     // 创建设置UI
     createSettingsUI();
@@ -580,17 +590,17 @@ async function initMobileContextPlugin() {
     registerConsoleCommands();
 
     // 启动监控
-    if (extension_settings.mobile_context.enabled) {
+    if (extension_settings[extensionName].enabled) {
       contextMonitor.start();
     }
 
     // 初始化上传功能
-    if (extension_settings.mobile_context.uploadEnabled) {
+    if (extension_settings[extensionName].uploadEnabled) {
       initUploadFeature();
     }
 
     // 初始化楼层监听器
-    if (extension_settings.mobile_context.mesidFloorEnabled) {
+    if (extension_settings[extensionName].mesidFloorEnabled) {
       initMesIDFloorMonitor();
     }
 
@@ -647,12 +657,12 @@ function initMesIDFloorMonitor() {
     }
 
     // 设置楼层选择器
-    if (extension_settings.mobile_context.floorSelector) {
-      window.mesidFloorMonitor.setFloorSelector(extension_settings.mobile_context.floorSelector);
+    if (extension_settings[extensionName].floorSelector) {
+      window.mesidFloorMonitor.setFloorSelector(extension_settings[extensionName].floorSelector);
     }
 
     // 如果启用了通知，添加默认的楼层变化监听器
-    if (extension_settings.mobile_context.enableFloorNotifications) {
+    if (extension_settings[extensionName].enableFloorNotifications) {
       window.mesidFloorMonitor.addEventListener('onFloorAdded', function (data) {
         console.log(`[MesID楼层监听器] 🟢 楼层增加: ${data.oldCount} -> ${data.newCount} (+${data.change})`);
         if (contextMonitor && contextMonitor.log) {
@@ -968,13 +978,13 @@ function bindStyleConfigControls() {
 function bindSettingsControls() {
   // 启用/禁用监控
   $('#mobile_context_enabled')
-    .prop('checked', extension_settings.mobile_context.enabled)
+    .prop('checked', extension_settings[extensionName].enabled)
     .on('change', function () {
-      extension_settings.mobile_context.enabled = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].enabled = $(this).prop('checked');
+      saveSettingsDebounced();
 
       if (contextMonitor) {
-        if (extension_settings.mobile_context.enabled) {
+        if (extension_settings[extensionName].enabled) {
           contextMonitor.start();
         } else {
           contextMonitor.stop();
@@ -984,126 +994,126 @@ function bindSettingsControls() {
 
   // 监控聊天变化
   $('#mobile_context_monitor_chat')
-    .prop('checked', extension_settings.mobile_context.monitorChat)
+    .prop('checked', extension_settings[extensionName].monitorChat)
     .on('change', function () {
-      extension_settings.mobile_context.monitorChat = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].monitorChat = $(this).prop('checked');
+      saveSettingsDebounced();
 
       if (contextMonitor) {
-        contextMonitor.updateSettings(extension_settings.mobile_context);
+        contextMonitor.updateSettings(extension_settings[extensionName]);
       }
     });
 
   // 监控角色变化
   $('#mobile_context_monitor_character')
-    .prop('checked', extension_settings.mobile_context.monitorCharacter)
+    .prop('checked', extension_settings[extensionName].monitorCharacter)
     .on('change', function () {
-      extension_settings.mobile_context.monitorCharacter = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].monitorCharacter = $(this).prop('checked');
+      saveSettingsDebounced();
 
       if (contextMonitor) {
-        contextMonitor.updateSettings(extension_settings.mobile_context);
+        contextMonitor.updateSettings(extension_settings[extensionName]);
       }
     });
 
   // 监控系统事件
   $('#mobile_context_monitor_events')
-    .prop('checked', extension_settings.mobile_context.monitorEvents)
+    .prop('checked', extension_settings[extensionName].monitorEvents)
     .on('change', function () {
-      extension_settings.mobile_context.monitorEvents = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].monitorEvents = $(this).prop('checked');
+      saveSettingsDebounced();
 
       if (contextMonitor) {
-        contextMonitor.updateSettings(extension_settings.mobile_context);
+        contextMonitor.updateSettings(extension_settings[extensionName]);
       }
     });
 
   // 日志级别
   $('#mobile_context_log_level')
-    .val(extension_settings.mobile_context.logLevel)
+    .val(extension_settings[extensionName].logLevel)
     .on('change', function () {
-      extension_settings.mobile_context.logLevel = $(this).val();
-      saveSettings();
+      extension_settings[extensionName].logLevel = $(this).val();
+      saveSettingsDebounced();
 
       if (contextMonitor) {
-        contextMonitor.updateSettings(extension_settings.mobile_context);
+        contextMonitor.updateSettings(extension_settings[extensionName]);
       }
     });
 
   // 最大日志条目
   $('#mobile_context_max_log_entries')
-    .val(extension_settings.mobile_context.maxLogEntries)
+    .val(extension_settings[extensionName].maxLogEntries)
     .on('change', function () {
-      extension_settings.mobile_context.maxLogEntries = parseInt($(this).val());
-      saveSettings();
+      extension_settings[extensionName].maxLogEntries = parseInt($(this).val());
+      saveSettingsDebounced();
 
       if (contextMonitor) {
-        contextMonitor.updateSettings(extension_settings.mobile_context);
+        contextMonitor.updateSettings(extension_settings[extensionName]);
       }
     });
 
   // 上传功能启用/禁用
   $('#mobile_upload_enabled')
-    .prop('checked', extension_settings.mobile_context.uploadEnabled)
+    .prop('checked', extension_settings[extensionName].uploadEnabled)
     .on('change', function () {
-      extension_settings.mobile_context.uploadEnabled = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].uploadEnabled = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 切换上传按钮显示/隐藏
       const uploadButton = document.getElementById('mobile-upload-trigger');
       if (uploadButton) {
-        uploadButton.style.display = extension_settings.mobile_context.uploadEnabled ? 'flex' : 'none';
+        uploadButton.style.display = extension_settings[extensionName].uploadEnabled ? 'flex' : 'none';
       }
     });
 
   // 上传通知启用/禁用
   $('#mobile_upload_notifications')
-    .prop('checked', extension_settings.mobile_context.showUploadNotifications)
+    .prop('checked', extension_settings[extensionName].showUploadNotifications)
     .on('change', function () {
-      extension_settings.mobile_context.showUploadNotifications = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].showUploadNotifications = $(this).prop('checked');
+      saveSettingsDebounced();
     });
 
   // 上下文编辑器启用/禁用
   $('#mobile_context_editor_enabled')
-    .prop('checked', extension_settings.mobile_context.contextEditorEnabled)
+    .prop('checked', extension_settings[extensionName].contextEditorEnabled)
     .on('change', function () {
-      extension_settings.mobile_context.contextEditorEnabled = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].contextEditorEnabled = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 切换上下文编辑器按钮显示/隐藏
       const editorButton = document.getElementById('mobile-context-editor-btn');
       if (editorButton) {
-        editorButton.style.display = extension_settings.mobile_context.contextEditorEnabled ? 'flex' : 'none';
+        editorButton.style.display = extension_settings[extensionName].contextEditorEnabled ? 'flex' : 'none';
       }
     });
 
   // 自定义API配置启用/禁用
   $('#mobile_custom_api_enabled')
-    .prop('checked', extension_settings.mobile_context.customAPIEnabled)
+    .prop('checked', extension_settings[extensionName].customAPIEnabled)
     .on('change', function () {
-      extension_settings.mobile_context.customAPIEnabled = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].customAPIEnabled = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 切换API配置按钮显示/隐藏
       const apiButton = document.getElementById('mobile-api-config-trigger');
       if (apiButton) {
-        apiButton.style.display = extension_settings.mobile_context.customAPIEnabled ? 'flex' : 'none';
+        apiButton.style.display = extension_settings[extensionName].customAPIEnabled ? 'flex' : 'none';
       }
     });
 
   // API配置按钮显示/隐藏
   $('#mobile_show_api_config_button')
-    .prop('checked', extension_settings.mobile_context.showAPIConfigButton)
+    .prop('checked', extension_settings[extensionName].showAPIConfigButton)
     .on('change', function () {
-      extension_settings.mobile_context.showAPIConfigButton = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].showAPIConfigButton = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 切换API配置按钮显示/隐藏
       const apiButton = document.getElementById('mobile-api-config-trigger');
       if (apiButton) {
         apiButton.style.display =
-          extension_settings.mobile_context.customAPIEnabled && extension_settings.mobile_context.showAPIConfigButton
+          extension_settings[extensionName].customAPIEnabled && extension_settings[extensionName].showAPIConfigButton
             ? 'flex'
             : 'none';
       }
@@ -1111,10 +1121,10 @@ function bindSettingsControls() {
 
   // 酒馆页面与手机控制兼容模式
   $('#mobile_tavern_compatibility_mode')
-    .prop('checked', extension_settings.mobile_context.tavernCompatibilityMode)
+    .prop('checked', extension_settings[extensionName].tavernCompatibilityMode)
     .on('change', function () {
-      extension_settings.mobile_context.tavernCompatibilityMode = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].tavernCompatibilityMode = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 应用pointer-events设置
       updatePointerEventsSettings();
@@ -1122,10 +1132,10 @@ function bindSettingsControls() {
 
   // 隐藏手机按钮
   $('#mobile_hide_phone')
-    .prop('checked', extension_settings.mobile_context.hidePhone)
+    .prop('checked', extension_settings[extensionName].hidePhone)
     .on('change', function () {
-      extension_settings.mobile_context.hidePhone = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].hidePhone = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 应用隐藏设置
       updatePhoneVisibility();
@@ -1170,13 +1180,13 @@ function bindSettingsControls() {
 
   // MesID楼层监听器设置
   $('#mobile_mesid_floor_enabled')
-    .prop('checked', extension_settings.mobile_context.mesidFloorEnabled)
+    .prop('checked', extension_settings[extensionName].mesidFloorEnabled)
     .on('change', function () {
-      extension_settings.mobile_context.mesidFloorEnabled = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].mesidFloorEnabled = $(this).prop('checked');
+      saveSettingsDebounced();
 
       if (window.mesidFloorMonitor) {
-        if (extension_settings.mobile_context.mesidFloorEnabled) {
+        if (extension_settings[extensionName].mesidFloorEnabled) {
           window.mesidFloorMonitor.start();
         } else {
           window.mesidFloorMonitor.stop();
@@ -1185,20 +1195,20 @@ function bindSettingsControls() {
     });
 
   $('#mobile_enable_floor_notifications')
-    .prop('checked', extension_settings.mobile_context.enableFloorNotifications)
+    .prop('checked', extension_settings[extensionName].enableFloorNotifications)
     .on('change', function () {
-      extension_settings.mobile_context.enableFloorNotifications = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].enableFloorNotifications = $(this).prop('checked');
+      saveSettingsDebounced();
     });
 
   $('#mobile_floor_selector')
-    .val(extension_settings.mobile_context.floorSelector)
+    .val(extension_settings[extensionName].floorSelector)
     .on('change', function () {
-      extension_settings.mobile_context.floorSelector = $(this).val();
-      saveSettings();
+      extension_settings[extensionName].floorSelector = $(this).val();
+      saveSettingsDebounced();
 
       if (window.mesidFloorMonitor) {
-        window.mesidFloorMonitor.setFloorSelector(extension_settings.mobile_context.floorSelector);
+        window.mesidFloorMonitor.setFloorSelector(extension_settings[extensionName].floorSelector);
       }
     });
 
@@ -1219,50 +1229,50 @@ function bindSettingsControls() {
 
   // 论坛管理器设置
   $('#mobile_forum_enabled')
-    .prop('checked', extension_settings.mobile_context.forumEnabled)
+    .prop('checked', extension_settings[extensionName].forumEnabled)
     .on('change', function () {
-      extension_settings.mobile_context.forumEnabled = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].forumEnabled = $(this).prop('checked');
+      saveSettingsDebounced();
 
       // 切换论坛按钮显示/隐藏
       const forumButton = document.getElementById('mobile-forum-trigger');
       if (forumButton) {
-        forumButton.style.display = extension_settings.mobile_context.forumEnabled ? 'flex' : 'none';
+        forumButton.style.display = extension_settings[extensionName].forumEnabled ? 'flex' : 'none';
       }
     });
 
   $('#mobile_forum_auto_update')
-    .prop('checked', extension_settings.mobile_context.forumAutoUpdate)
+    .prop('checked', extension_settings[extensionName].forumAutoUpdate)
     .on('change', function () {
-      extension_settings.mobile_context.forumAutoUpdate = $(this).prop('checked');
-      saveSettings();
+      extension_settings[extensionName].forumAutoUpdate = $(this).prop('checked');
+      saveSettingsDebounced();
 
       if (window.forumManager) {
-        window.forumManager.currentSettings.autoUpdate = extension_settings.mobile_context.forumAutoUpdate;
+        window.forumManager.currentSettings.autoUpdate = extension_settings[extensionName].forumAutoUpdate;
         window.forumManager.saveSettings();
       }
     });
 
   $('#mobile_forum_threshold')
-    .val(extension_settings.mobile_context.forumThreshold)
+    .val(extension_settings[extensionName].forumThreshold)
     .on('change', function () {
-      extension_settings.mobile_context.forumThreshold = parseInt($(this).val());
-      saveSettings();
+      extension_settings[extensionName].forumThreshold = parseInt($(this).val());
+      saveSettingsDebounced();
 
       if (window.forumManager) {
-        window.forumManager.currentSettings.threshold = extension_settings.mobile_context.forumThreshold;
+        window.forumManager.currentSettings.threshold = extension_settings[extensionName].forumThreshold;
         window.forumManager.saveSettings();
       }
     });
 
   $('#mobile_forum_style')
-    .val(extension_settings.mobile_context.forumStyle)
+    .val(extension_settings[extensionName].forumStyle)
     .on('change', function () {
-      extension_settings.mobile_context.forumStyle = $(this).val();
-      saveSettings();
+      extension_settings[extensionName].forumStyle = $(this).val();
+      saveSettingsDebounced();
 
       if (window.forumManager) {
-        window.forumManager.currentSettings.selectedStyle = extension_settings.mobile_context.forumStyle;
+        window.forumManager.currentSettings.selectedStyle = extension_settings[extensionName].forumStyle;
         window.forumManager.saveSettings();
       }
     });
@@ -1284,14 +1294,6 @@ function bindSettingsControls() {
   });
 }
 
-/**
- * 保存设置
- */
-function saveSettings() {
-  if (window.saveSettingsDebounced) {
-    window.saveSettingsDebounced();
-  }
-}
 
 /**
  * 注册控制台命令
@@ -2675,7 +2677,7 @@ window.MobileContextPlugin = {
   getForumUI: () => window.forumUI,
   apiVersion: '2.4',
   updatePointerEventsSettings: () => updatePointerEventsSettings(),
-  getSettings: () => extension_settings.mobile_context,
+  getSettings: () => extension_settings[extensionName],
 };
 
 /**
@@ -2689,7 +2691,7 @@ function updatePointerEventsSettings() {
     return;
   }
 
-  if (extension_settings.mobile_context.tavernCompatibilityMode) {
+  if (extension_settings[extensionName].tavernCompatibilityMode) {
     // 兼容模式：启用pointer-events设置，允许同时控制手机和酒馆页面
     container.style.pointerEvents = 'none';
     frame.style.pointerEvents = 'auto';
@@ -2710,7 +2712,7 @@ function updatePhoneVisibility() {
     return;
   }
 
-  if (extension_settings.mobile_context.hidePhone) {
+  if (extension_settings[extensionName].hidePhone) {
     // 隐藏手机按钮
     phoneTrigger.style.display = 'none';
   } else {
